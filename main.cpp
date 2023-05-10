@@ -2,8 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 int main() {
-    
-    sf::RenderWindow window(sf::VideoMode(1200, 900), "Danger World", sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(32 * 10, 32 * 8), "Danger World", sf::Style::Close);
     window.setFramerateLimit(60);
 
     while (window.isOpen()) {
