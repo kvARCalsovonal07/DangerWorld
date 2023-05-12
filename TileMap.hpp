@@ -62,6 +62,11 @@ class TileMap : public sf::Drawable {
                 props.push_back(*prop);
             }
         }
+    
+        // Editálás
+        void update() {
+            
+        }
 
         // Kirajzolás
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
