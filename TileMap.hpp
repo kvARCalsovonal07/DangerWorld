@@ -7,6 +7,8 @@
 
 #include "Tile.hpp"
 #include "Prop.hpp"
+#include "Skeleton.hpp"
+#include "Mushroom.hpp"
 
 using json = nlohmann::json;
 
@@ -27,6 +29,25 @@ class TileMap : public sf::Drawable {
                 }
 
                 tilemap.push_back(line);
+            }
+
+            // A mobok hozzáadása a mob listához
+            for (int i = 0; i < input["Mobs"].size(); i++) {
+                json mobJson = input["Mobs"][i];
+
+                if (mobJson["Type"] == "Skeleton") {
+                    Skeleton* skeleton = new Skeleton(mobJson["Flip"]);
+
+                    skeleton->setPosition(mobJson["Position"]["x"], mobJson["Position"]["y"]);
+
+                    mobs.push_back((Mob*) skeleton);
+                } else if (mobJson["Type"] == "Mushroom") {
+                    Mushroom* mushroom = new Mushroom(mobJson["Flip"]);
+
+                    mushroom->setPosition(mobJson["Position"]["x"], mobJson["Position"]["y"]);
+
+                    mobs.push_back((Mob*) mushroom);
+                }
             }
 
             // Hozzáadni a játék objektumok listájához a játék legfontosabb elemeit, a tile-kat (a kockákat)
@@ -62,10 +83,23 @@ class TileMap : public sf::Drawable {
                 props.push_back(*prop);
             }
         }
-    
-        // Editálás
+
+        // Frissítés
         void update() {
-            
+            //Végigfut a mobokon és mozgatja meg animálja őket
+            for (Mob* mob : mobs) {
+                if (typeid(*mob) == typeid(Skeleton)) {
+                    Skeleton* skeleton = static_cast<Skeleton*>(mob);
+
+                    skeleton->update();
+                    skeleton->move(tiles);
+                } else if (typeid(*mob) == typeid(Mushroom)) {
+                    Mushroom* mushroom = static_cast<Mushroom*>(mob);
+
+                    mushroom->update();
+                    mushroom->move(tiles);
+                }
+            }
         }
 
         // Kirajzolás
@@ -77,9 +111,24 @@ class TileMap : public sf::Drawable {
             for (Prop prop : props) {
                 target.draw(prop, states);
             }
+
+            for (Mob* mob : mobs) {
+                if (typeid(*mob) == typeid(Skeleton)) {
+                    Skeleton* skeleton = static_cast<Skeleton*>(mob);
+
+                    target.draw(*skeleton, states);
+                } else if (typeid(*mob) == typeid(Mushroom)) {
+                    Mushroom* mushroom = static_cast<Mushroom*>(mob);
+
+                    target.draw(*mushroom, states);
+                }
+            }
         }
     private:
         // A változók
+
+        int x = 0;
+        int y = 0;
 
         int CameraX = 0;
         int CameraY = 0;
@@ -88,6 +137,7 @@ class TileMap : public sf::Drawable {
 
         std::vector<Tile> tiles;
         std::vector<Prop> props;
+        std::vector<Mob*> mobs;
 };
 
 #endif // __TILEMAP_HPP__
