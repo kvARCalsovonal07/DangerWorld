@@ -5,6 +5,7 @@
 enum GuiType {
     FŐMENÜ,
     KÉSZÍTŐK,
+    FORRÁSOK,
     JÁTÉK
 };
 
