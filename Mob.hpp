@@ -56,24 +56,10 @@ class Mob: public sf::Drawable {
             return  this->health;
         }
 
-        // A kamera pozíciójának a beállítása a felhasználónak
-        void setCameraPosition(int x, int y) {
-            this->camera_x = x;
-            this->camera_y = y;
-        }
-
-        // Kamera pozíciójának megkapása a felhasználónak
-        sf::Vector2f getCameraPosition() {
-            return sf::Vector2f(this->camera_x, this->camera_y);
-        }
-
     protected:
         // Váltizók
 
         bool flip;
-
-        int camera_x;
-        int camera_y;
 
         int x, y;
         int health;
