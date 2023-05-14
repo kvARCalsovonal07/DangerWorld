@@ -11,7 +11,7 @@ class Skeleton : public Mob {
     public:
 
         // Konstruktor
-        Skeleton(bool flip) : Mob(sf::RectangleShape(sf::Vector2f(40, 100)), 50) {
+        Skeleton(bool flip) : Mob(flip, sf::RectangleShape(sf::Vector2f(40, 100)), 50) {
             this->texture.loadFromFile("images/mobs/skeleton.png");
 
             this->sprite.setTexture(this->texture);
@@ -21,7 +21,6 @@ class Skeleton : public Mob {
             this->animationSleep = 0;
             this->action = 1;
             this->attackingCooldown = 50;
-            this->flip = flip;
             this->attacking = false;
             this->takeHit = false;
             this->alive = true;
@@ -127,11 +126,7 @@ class Skeleton : public Mob {
                     alive = false;
                 }
             } else {
-                if (!takeHit) {
-                    action = 4;
-                } else {
-                    action = 3;
-                }
+                action = 4;
                 attacking = false;
             }
 
@@ -218,21 +213,6 @@ class Skeleton : public Mob {
             target.draw(this->sprite, states);
         }
 
-        // Pozció beállítása a felhasználó számára
-        void setPosition(int x, int y) {
-            this->x = x;
-            this->y = y;
-        }
-
-        // Pozíció bekérése a felhasználó számára
-        sf::Vector2f getPosition() {
-            return sf::Vector2f(this->x, this->y);
-        }
-
-        sf::FloatRect getGlobalBounds() {
-            return hitbox.getGlobalBounds();
-        }
-
         // Sebzés a külső felhasználóknak
         void damage(int damage) {
             if (alive && !takeHit) {
@@ -242,11 +222,6 @@ class Skeleton : public Mob {
 
                 this->health -= damage;
             }
-        }
-
-        // Irány beállítása a felhasználónak
-        void setFlip(bool flip) {
-            this->flip = true;
         }
 
         // A mob kivégzése a felhasználó számára
@@ -266,7 +241,6 @@ class Skeleton : public Mob {
         int action;
         int attackingCooldown;
         bool alive;
-        bool flip;
         bool defaultFlip;
         bool attacking;
         bool takeHit;
