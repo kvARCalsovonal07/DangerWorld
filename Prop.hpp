@@ -34,8 +34,6 @@ class Prop : public sf::Drawable {
 
         // Pozíció beállítása a felhasználónak
         void setPosition(int x, int y) {
-            this->x = x;
-            this->y = y;
             this->sprite.setPosition(this->x, this->y);
         }
 
