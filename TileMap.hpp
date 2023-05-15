@@ -86,7 +86,7 @@ class TileMap : public sf::Drawable {
 
         // Frissítés
         void update() {
-            //Végigfut a mobokon és mozgatja meg animálja őket
+            // Végigfut a mobokon és mozgatja meg animálja őket
             for (Mob* mob : mobs) {
                 if (typeid(*mob) == typeid(Skeleton)) {
                     Skeleton* skeleton = static_cast<Skeleton*>(mob);
@@ -124,22 +124,8 @@ class TileMap : public sf::Drawable {
                 }
             }
         }
-
-        // A kamera pozíciójának a beállítása a felhasználónak
-        void setCameraPosition(int x, int y) {
-            this->camera_x = x;
-            this->camera_y = y;
-        }
-
-        // Kamera pozíciójának megkapása a felhasználónak
-        sf::Vector2f getCameraPosition() {
-            return sf::Vector2f(this->camera_x, this->camera_y);
-        }
     private:
         // A változók
-
-        int camera_x = 0;
-        int camera_y = 0;
 
         int playerPosition = 0;
 
