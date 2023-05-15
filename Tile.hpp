@@ -20,7 +20,6 @@ class Tile : public sf::Drawable {
 
             this->sprite.setTexture(this->texture);
             this->sprite.setScale(2.0, 2.0);
-
         }
 
         // Kirajzolás
@@ -47,7 +46,7 @@ class Tile : public sf::Drawable {
             return hitbox.getGlobalBounds();
         }
 
-        // Pozíció megkapása a felhasználónak
+        // Pozíció lekérése a felhasználónak
         sf::Vector2f getPosition() {
             return sf::Vector2f(this->x, this->y);
         }
