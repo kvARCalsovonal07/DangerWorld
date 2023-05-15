@@ -50,10 +50,6 @@ int main() {
         maps.push_back(level);
     }
 
-    Variables::gui = GuiType::JÁTÉK;
-
-    //GIF gif("images/mobs/mushroom.png", sf::Vector2f(150, 150), 4.0, 4, 10);
-
     // A játék ciklus
     while (window.isOpen()) {
 
