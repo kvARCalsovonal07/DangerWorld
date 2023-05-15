@@ -9,6 +9,7 @@
 #include "TileMap.hpp"
 #include "GuiType.hpp"
 #include "Variables.hpp"
+#include "GIF.hpp"
 
 using json = nlohmann::json;
 
@@ -49,6 +50,10 @@ int main() {
         maps.push_back(level);
     }
 
+    Variables::gui = GuiType::JÁTÉK;
+
+    //GIF gif("images/mobs/mushroom.png", sf::Vector2f(150, 150), 4.0, 4, 10);
+
     // A játék ciklus
     while (window.isOpen()) {
 
@@ -70,10 +75,15 @@ int main() {
             case GuiType::KÉSZÍTŐK:
                 window.clear(sf::Color::White);
                 break;
+            // Források
+            case GuiType::FORRÁSOK:
+                window.clear(sf::Color::White);
+                break;
             // Maga a játék
             case GuiType::JÁTÉK:
                 window.clear(sf::Color::Black);
 
+                maps[0].update();
                 window.draw(maps[0]);
 
                 break;
